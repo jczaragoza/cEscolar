@@ -127,6 +127,7 @@ class CategoriaDeleteView(DeleteView):
         context['list_url'] = reverse_lazy('erp:category_list')
         return context
 
+
 class CategoriaFormView(FormView):
     form_class = CategoriaForm
     template_name = 'category/create.html'
