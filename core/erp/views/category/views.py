@@ -21,10 +21,16 @@ class CategoriaListView(ListView):
     def post(self, request, *args, **kwargs):
         data = {}
         try:
-            data = Categorias.objects.get(pk=request.POST['id']).toJSON()
+            action = request.POST['action']
+            if action == 'searchdata':
+                data = []
+                for i in Categorias.objects.all():
+                    data.append(i.toJSON())
+            else:
+                data['error'] = 'Ha ocurrido un error'
         except Exception as e:
             data['error'] = str(e)
-        return JsonResponse(data)
+        return JsonResponse(data, safe=False)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -57,16 +63,6 @@ class CategoriaCreateView(CreateView):
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data)
-
-    #     print(request.POST)
-    #     form = CategoryForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return HttpResponseRedirect(self.success_url)
-    #     self.object = None
-    #     context = self.get_context_data(**kwargs)
-    #     context['form'] = form
-    #     return render(request, self.template_name, context)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
