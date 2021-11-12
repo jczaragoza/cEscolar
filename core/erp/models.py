@@ -1,4 +1,5 @@
 from django.db import models
+from config.settings import MEDIA_URL, STATIC_URL
 
 
 class Calificaciones(models.Model):
@@ -40,11 +41,17 @@ class Corporaciones(models.Model):
 
 class Cursos(models.Model):
     nom_curso = models.CharField(max_length=255, blank=True, null=True, verbose_name='Curso')
-    #categoria_id = models.ForeignKey(Categorias, on_delete=models.CASCADE)
-    horas = models.CharField(max_length=255, blank=True, null=True)
+    categoria_id = models.ForeignKey(Categorias, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='curso/%Y/%m/%d', null=True, blank=True)
+    horas = models.CharField(max_length=3, blank=True, null=True)
 
     def __str__(self):
         return self.nom_curso
+
+    def get_image(self):
+        if self.image:
+            return '{}{}'.format(MEDIA_URL, self.image)
+        return '{}{}'.format(STATIC_URL, 'img/empty.png')
 
     class Meta:
         verbose_name = 'Curso'
