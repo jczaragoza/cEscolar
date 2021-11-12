@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from core.homepage.views import IndexView
 from core.login.views import *
+<<<<<<< HEAD
 
 from django.conf import settings
 #from django.conf.urls.static import static
@@ -24,6 +25,12 @@ from django.conf import settings
 urlpatterns = [
     path('', IndexView.as_view()),
     path('login/', include('core.login.urls')),
+=======
+
+urlpatterns = [
+    path('', IndexView.as_view()),
+    path('login/', LoginFormView.as_view()),
+>>>>>>> 7e6e227e11f6ffdba7d32c04f74dd7fffc16e471
     path('admin/', admin.site.urls),
     path('erp/', include('core.erp.urls')),
 ]
