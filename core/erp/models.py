@@ -14,15 +14,15 @@ class Calificaciones(models.Model):
 
 
 class Categorias(models.Model):
-    nom_categoria = models.CharField(max_length=255, blank=True, null=True, verbose_name='Categoría')
+    nom_categoria = models.CharField(max_length=150, unique=True, verbose_name='Categoría')
     descripcion = models.TextField(max_length=50, blank=True, null=True, verbose_name='Descripción')
 
     def __str__(self):
         return self.nom_categoria
 
     class Meta:
-        verbose_name = 'Catego'
-        verbose_name_plural = 'Categos'
+        verbose_name = 'Categoria'
+        verbose_name_plural = 'Categorias'
         ordering = ['id']
 
 
